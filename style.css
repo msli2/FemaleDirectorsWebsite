@@ -45,7 +45,9 @@ h5,
 }
 
 p a,
-p a:hover {
+.text p a,
+p a:hover,
+.text p a:hover {
   color:#4281a4;
 }
 
