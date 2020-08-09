@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Gender Differences Director</title>
+</head>
+<style>
+  .navbar {
+    background-color: #220901;
+    font-family: "Work Sans";
+  }
+  .navbar .navbar-brand {
+    font-size: 28px;
+  }
+  .navbar a,
+  .list-group-item {
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .navbar .nav-item.active .nav-link,
+  .navbar a:hover {
+    background-color: #621708 !important;
+    color: white !important;
+    text-decoration: none;
+  }
+  .d3tipclass {
+    line-height: 1;
+    padding: 6px;
+    background: #220901;
+    color: #fff;
+    font-size: 13px;
+  }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    color: #220901;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    max-height: 100%;
+  }
+  button,
+  .card {
+    border: none;
+    background: none;
+    display: block;
+    text-align: left;
+  }
+  button:hover {
+    background: #220901;
+    color: white;
+  }
+  button:focus {
+    outline: 0;
+    background: #220901;
+    color: white;
+  }
+  .card-header {
+    background: none;
+    font-size: 16px;
+  }
+  .card-body {
+    font-size: 14px;
+  }
+  #accordion {
+    border: 1px solid lightgrey;
+  }
+  .scroll {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 60%;
+    vertical-align: top;
+  }
+  .svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .graph {
+    overflow-y: scroll;
+    margin-bottom: 10px;
+  }
+</style>
+<body>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="d3-tip.js"></script>
+  <nav class="navbar navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand" href="../d3.html">FEMALE DIRECTORS D3</a>
+      <div class="navbar-collapse w-100">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="bargraph.html"
+              >OVER TIME</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html"
+              >DIRECTOR</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="GenderDifferencesFilm.html"
+              >MEDIA</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="RecurringActors.html">RECURRING</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ActorDirectorRelations.html"
+              >RELATIONS</a
+            >
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="ActorTimelines.html">TIMELINES</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h5 style="padding-top: 10px;">
+      Director and Actor Timelines
+    </h5>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="tableOfContents">
+          <div
+            style="border: 1px solid lightgrey; padding: 6px; margin-top: 10px;"
+          >
+            <h6
+              style="
+                padding: 5px;
+                text-align: center;
+                font-size: 17px;
+                font-weight: 550;
+              "
+            >
+              Summary About Director
+            </h6>
+            <div>
+              <p id="summary" style="text-align: center; line-height: 1.2;"></p>
+            </div>
+          </div>
+          <div class="d-flex text-center mt-3" style="font-size: 14px;">
+            <h6
+              class="w-100 mt-3"
+              style="font-weight: 600; text-align: center;"
+            >
+              Color Key
+            </h6>
+            <p class="w-100" style="padding: 4px;">
+              <span style="color: rgb(17, 138, 178);">Blue: </span>More Male
+            </p>
+            <p class="w-100" style="padding: 4px;">
+              <span style="color: rgb(244, 124, 152);">Pink: </span>More Female
+            </p>
+            <p class="w-100" style="padding: 4px;">
+              <span style="color: #212529;">Black: </span>Equal Actors
+            </p>
+          </div>
+          <div id="accordion"></div>
+        </div>
+      </div>
+      <div class="col-md-9" style="margin-top: 10px;">
+        <div class="row">
+          <div
+            class="col-md-6 mt-2 mb-2"
+            id="title"
+            style="font-size: 18px;"
+          ></div>
+        </div>
+        <div id="container" class="svg-container graph mt-1 mb-4"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    d3.csv("actortimelines.csv").then((data) => {
+      var choosenlist = [];
+      choosenlist = data.map(function (d) {
+        return d.director;
+      });
+      var cardheaders = [];
+
+      for (var i = 0; i < choosenlist.length; i++) {
+        if (cardheaders.includes(choosenlist[i])) {
+          continue;
+        } else {
+          cardheaders.push(choosenlist[i]);
+        }
+      }
+
+      cardheaders.sort();
+
+      d3.select("#accordion").append("div").classed("card", true).html(
+        `<div class="card">
+              <div
+                class="card-header"
+              >
+                Female Directors
+              </div>
+              <div class="card-body scroll">
+              </div>`
+      );
+
+      d3.select(".card-body").append("div").html(
+        `<button
+                    class="col-md-12"
+                    onclick="choose('All Directors')"
+                  >
+                  All Directors
+                  </button>`
+      );
+
+      for (var k = 0; k < cardheaders.length; k++) {
+        d3.select(".card-body").append("div").html(
+          `<button
+                    class="col-md-12"
+                    onclick="choose('${cardheaders[k]}')"
+                  >
+                    ${cardheaders[k]}
+                  </button>`
+        );
+      }
+    });
+
+    choose("All Directors");
+
+    function choose(director) {
+      d3.csv("actortimelines.csv").then((data) => {
+        d3.selectAll("svg").remove();
+        d3.selectAll("#title > text").remove();
+        d3.selectAll("p#summary > text").remove();
+        var margin = { top: 20, right: 20, bottom: 20, left: 120 },
+          width = 850 - margin.left - margin.right,
+          timelineheight = 90;
+
+        var choosenlist = [];
+        var choosenfilms = [];
+        if (director == "All Directors") {
+          var title = d3
+            .select("#title")
+            .append("text")
+            .style("font-weight", 550)
+            .text(director);
+
+          data.forEach(function (d) {
+            if (!choosenlist.includes(d.director)) {
+              choosenlist.push(d.director);
+            }
+          });
+
+          var malecount = 0;
+          var femalecount = 0;
+          var equalcount = 0;
+
+          data.forEach(function (d) {
+            if (!choosenfilms.includes(d.film)) {
+              choosenfilms.push(d.film);
+              if (d.maleactors > d.femaleactors) {
+                malecount++;
+              } else if (d.maleactors < d.femaleactors) {
+                femalecount++;
+              } else {
+                equalcount++;
+              }
+            }
+          });
+
+          var summary = d3
+            .select("p#summary")
+            .append("text")
+            .style("font-size", 16)
+            .text(
+              director +
+                " have " +
+                malecount +
+                " films with more males actors, " +
+                femalecount +
+                " films with more female actors and " +
+                equalcount +
+                " films with equal male, female actors."
+            );
+        } else {
+          var title = d3
+            .select("#title")
+            .append("text")
+            .style("font-weight", 550)
+            .text("Director " + director + " Actors");
+
+          data.forEach(function (d) {
+            if (!choosenlist.includes(d.actor) & (d.director == director)) {
+              choosenlist.push(d.actor);
+            }
+          });
+
+          var malecount = 0;
+          var femalecount = 0;
+          var equalcount = 0;
+
+          data.forEach(function (d) {
+            if (!choosenfilms.includes(d.film) & (d.director == director)) {
+              choosenfilms.push(d.film);
+              if (d.maleactors > d.femaleactors) {
+                malecount++;
+              } else if (d.maleactors < d.femaleactors) {
+                femalecount++;
+              } else {
+                equalcount++;
+              }
+            }
+          });
+
+          var summary = d3
+            .select("p#summary")
+            .append("text")
+            .style("font-size", 16)
+            .text(
+              "Director " +
+                director +
+                " has " +
+                malecount +
+                " films with more males actors, " +
+                femalecount +
+                " films with more female actors and " +
+                equalcount +
+                " films with equal male, female actors."
+            );
+        }
+
+        var height = choosenlist.length * timelineheight;
+
+        choosenlist.sort();
+
+        var svg = d3
+          .select("div#container")
+          .append("svg")
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("viewBox", "0 0 850 " + height)
+          .classed("svg-content", true)
+          .append("g")
+          .attr(
+            "transform",
+            "translate(" + margin.left + "," + margin.top + ")"
+          );
+
+        var tiphover = d3
+          .tip()
+          .attr("class", "d3tipclass")
+          .direction("n")
+          .offset(function (d) {
+            if (director == "All Directors") {
+              return [-5, 0];
+            } else {
+              return [-3, 0];
+            }
+          })
+          .html(function (d) {
+            if (director == "All Directors") {
+              var content =
+                "<span style='margin-left: 2.5px;'><b>" +
+                d.film +
+                ", " +
+                d.year +
+                "</b></span><br>";
+              return content;
+            } else {
+              var content =
+                "<span style='margin-left: 2.5px;'><b>" +
+                d.film +
+                ", " +
+                d.year +
+                "</b></span><br>" +
+                "<span style='margin-left: 2.5px;'><b>" +
+                d.director +
+                "</b></span><br>";
+              return content;
+            }
+          });
+        svg.call(tiphover);
+
+        var graphheight = 0;
+        for (var i = 0; i < choosenlist.length; i++) {
+          dataChoosen = data.filter(function (d) {
+            if (director == "All Directors") {
+              return d.director == choosenlist[i];
+            } else {
+              return d.actor == choosenlist[i];
+            }
+          });
+
+          var x = d3.scaleLinear().range([0, width]);
+          x.domain([
+            d3.min(dataChoosen, function (d) {
+              return d.year;
+            }),
+            d3.max(dataChoosen, function (d) {
+              return d.year;
+            }),
+          ]);
+
+          var formatxAxis = d3.format(".0f");
+
+          if (director == "All Directors" || dataChoosen.length >= 4) {
+            svg
+              .append("g")
+              .attr("transform", "translate(0," + graphheight + ")")
+              .style("font-size", 15)
+              .style("font-family", "Times New Roman")
+              .style("color", "lightgrey")
+              .call(
+                d3.axisBottom(x).ticks(5).tickFormat(formatxAxis).tickPadding(8)
+              );
+
+            d3.selectAll("g.tick").style("color", "black");
+          } else if (dataChoosen.length < 4) {
+            svg
+              .append("g")
+              .attr("transform", "translate(0," + graphheight + ")")
+              .style("font-size", 14)
+              .style("font-family", "Times New Roman")
+              .style("color", "lightgrey")
+              .call(
+                d3
+                  .axisBottom(x)
+                  .ticks()
+                  .tickValues(
+                    dataChoosen.map(function (d) {
+                      return d.year;
+                    })
+                  )
+                  .tickFormat(formatxAxis)
+                  .tickPadding(8)
+              );
+
+            d3.selectAll("g.tick").style("color", "black");
+          }
+
+          svg
+            .selectAll("dot")
+            .data(dataChoosen)
+            .enter()
+            .append("circle")
+            .attr("r", 8)
+            .style("fill", function (d) {
+              if (d.maleactors > d.femaleactors) {
+                return "rgb(17, 138, 178)";
+              } else if (d.femaleactors > d.maleactors) {
+                return "rgb(244, 124, 152)";
+              } else {
+                return "#212529";
+              }
+            })
+            .attr("cx", function (d) {
+              return x(d.year);
+            })
+            .attr("cy", function (d) {
+              return graphheight;
+            })
+            .on("mouseover", tiphover.show)
+            .on("mouseout", tiphover.hide);
+
+          svg
+            .append("text")
+            .attr("x", 0 - margin.left)
+            .attr("y", graphheight + 5)
+            .style("font-size", 15)
+            .style("font-family", "Times New Roman")
+            .text(choosenlist[i])
+            .call(wrap, margin.left - 10);
+
+          graphheight += timelineheight;
+        }
+      });
+    }
+    function wrap(text, width) {
+      text.each(function () {
+        var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1,
+          x = text.attr("x"),
+          y = text.attr("y"),
+          dy = 0,
+          tspan = text
+            .text(null)
+            .append("tspan")
+            .attr("x", x)
+            .attr("y", y)
+            .attr("dy", dy + "em");
+        while ((word = words.pop())) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+            line.pop();
+            tspan.text(line.join(" "));
+            line = [word];
+            tspan = text
+              .append("tspan")
+              .attr("x", x)
+              .attr("y", y)
+              .attr("dy", ++lineNumber * lineHeight + dy + "em")
+              .text(word);
+          }
+        }
+      });
+    }
+  </script>
+</body>

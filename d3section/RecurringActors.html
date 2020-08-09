@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Reoccuring Actors</title>
+</head>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+  .navbar {
+    background-color: #220901;
+    font-family: "Work Sans";
+  }
+  .navbar .navbar-brand {
+    font-size: 28px;
+  }
+  .navbar a,
+  .list-group-item {
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .navbar .nav-item.active .nav-link,
+  .navbar a:hover {
+    background-color: #621708 !important;
+    color: white !important;
+    text-decoration: none;
+  }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    color: #220901;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    max-height: 100%;
+  }
+  .d3tipclass {
+    line-height: 1;
+    padding: 6px;
+    background: #220901;
+    color: #fff;
+    font-size: 14px;
+  }
+  button,
+  .card {
+    border: none;
+    background: none;
+    display: block;
+    text-align: left;
+  }
+  button:hover {
+    background: #220901;
+    color: white;
+  }
+  button:focus {
+    outline: 0;
+    background: #220901;
+    color: white;
+  }
+  .card-header {
+    background: none;
+    font-size: 16px;
+  }
+  .card-body {
+    font-size: 14px;
+  }
+  #accordion {
+    border: 1px solid lightgrey;
+  }
+  .scroll {
+    max-height: 280px;
+    overflow-y: auto;
+  }
+  .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    overflow: hidden;
+  }
+  .svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .options {
+    border: 1px solid lightgrey;
+    text-align: center;
+  }
+  .btn-group {
+    padding-bottom: 20px;
+  }
+</style>
+<body>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="d3-tip.js"></script>
+  <nav class="navbar navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand" href="../d3.html">FEMALE DIRECTORS D3</a>
+      <div class="navbar-collapse w-100">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="bargraph.html"
+              >OVER TIME</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html"
+              >DIRECTOR</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="GenderDifferencesFilm.html"
+              >MEDIA</a
+            >
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="RecurringActors.html">RECURRING</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ActorDirectorRelations.html"
+              >RELATIONS</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ActorTimelines.html">TIMELINES</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h5 style="padding-top: 10px;">
+      Recurring Actors Per Director
+    </h5>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="tableOfContents">
+          <div
+            style="border: 1px solid lightgrey; padding: 6px; margin-top: 10px;"
+          >
+            <h6
+              style="
+                padding: 5px;
+                text-align: center;
+                font-size: 17px;
+                font-weight: 550;
+              "
+            >
+              Summary About Director
+            </h6>
+            <div>
+              <p id="summary" style="text-align: center; line-height: 1.2;"></p>
+            </div>
+          </div>
+          <div class="d-flex text-center mt-3" style="font-size: 14px;">
+            <h6
+              class="w-100 mt-3"
+              style="font-weight: 600; text-align: center;"
+            >
+              Color Key
+            </h6>
+            <p class="w-100" style="padding: 4px;">
+              <span style="color: rgb(17, 138, 178);">Blue: </span>Male Actors
+            </p>
+            <p class="w-100" style="padding: 4px;">
+              <span style="color: rgb(244, 124, 152);">Pink: </span>Female
+              Actors
+            </p>
+            <p class="w-100" style="padding: 4px;">
+              Multicolor: Recurrences
+            </p>
+          </div>
+          <div class="btn-group d-flex">
+            <h6 class="w-100" style="font-weight: 600; text-align: center;">
+              Color Options
+            </h6>
+            <button class="options w-100" onclick="chooseColor('value')">
+              # of Films
+            </button>
+            <button class="options w-100" onclick="chooseColor('gender')">
+              Gender
+            </button>
+          </div>
+          <div id="accordion"></div>
+        </div>
+      </div>
+      <div id="container" class="svg-container col-md-9"></div>
+    </div>
+    <script>
+      var margin = { top: 60, right: 100, bottom: 40, left: 60 },
+        width = 800 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
+
+      var bubblechart = d3.pack().size([640, 580]).padding(2);
+
+      var svg = d3
+        .select("div#container")
+        .append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 800 800")
+        .classed("svg-content", true)
+        .attr("class", "bubblechart")
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      chooseDirector("Agnes Varda");
+
+      d3.csv("actors.csv").then((data) => {
+        var directors = [];
+        directors = data.map(function (d) {
+          return d.director;
+        });
+        var cardheaders = [];
+
+        for (var i = 0; i < directors.length; i++) {
+          if (cardheaders.includes(directors[i])) {
+            continue;
+          } else {
+            cardheaders.push(directors[i]);
+          }
+        }
+
+        cardheaders.sort();
+
+        d3.select("#accordion").append("div").classed("card", true).html(
+          `<div class="card">
+              <div
+                class="card-header"
+              >
+                Female Directors
+              </div>
+              <div class="card-body scroll">
+              </div>`
+        );
+
+        for (var k = 0; k < cardheaders.length; k++) {
+          d3.select(".card-body").append("div").html(
+            `<button
+                    class="col-md-12"
+                    onclick="chooseDirector('${cardheaders[k]}')"
+                  >
+                    ${cardheaders[k]}
+                  </button>`
+          );
+        }
+      });
+
+      function chooseDirector(director) {
+        d3.csv("actors.csv").then(function (data) {
+          d3.selectAll("svg > g > *").remove();
+          d3.selectAll("p#summary > text").remove();
+
+          dataDirector = data.filter(function (d) {
+            return d.director == director;
+          });
+
+          dataDirector.forEach(function (d) {
+            d.value = parseInt(d.value);
+          });
+
+          var color = d3.scaleOrdinal([
+            "#008777",
+            "#67a1d1",
+            "#b6bef6",
+            "#ffdaff",
+            "#fad3b4",
+            "#f0a68a",
+            "#ec7263",
+          ]);
+
+          svg
+            .append("text")
+            .attr("transform", "translate(" + width / 2 + "," + -20 + ")")
+            .style("text-anchor", "middle")
+            .style("font-size", 18)
+            .style("font-weight", 550)
+            .text("Director " + director);
+
+          let formatSuffixDecimal2 = d3.format(".2s");
+          let maleNum = d3.sum(dataDirector, (d) => d.gender == "m");
+          let femaleNum = d3.sum(dataDirector, (d) => d.gender == "f");
+          var maxFilms = d3.max(dataDirector.map((d) => d.value));
+          let maleratio = 0;
+          let femaleratio = 0;
+          if (maleNum == 0) {
+            maleratio = 0;
+            femaleratio = femaleNum;
+          } else if (femaleNum == 0) {
+            maleratio = maleNum;
+            femaleratio = 0;
+          } else if (maleNum > femaleNum) {
+            maleratio = formatSuffixDecimal2(maleNum / femaleNum);
+            femaleratio = formatSuffixDecimal2(femaleNum / femaleNum);
+          } else {
+            maleratio = formatSuffixDecimal2(maleNum / maleNum);
+            femaleratio = formatSuffixDecimal2(femaleNum / maleNum);
+          }
+
+          var summary = d3
+            .select("p#summary")
+            .append("text")
+            .style("font-size", 16)
+            .text(
+              "Director " +
+                director +
+                " has " +
+                (maleNum + femaleNum) +
+                " recurring actors, " +
+                maleNum +
+                " male and " +
+                femaleNum +
+                " female. This results in a " +
+                maleratio +
+                " to " +
+                femaleratio +
+                " ratio. The highest number of actor recurrences is " +
+                maxFilms +
+                " films."
+            );
+
+          let tip = d3
+            .tip()
+            .attr("class", "d3tipclass")
+            .direction("e")
+            .offset([0, 5])
+            .html(function (d) {
+              var content =
+                "<span style='margin-left: 2.5px;'><b>" +
+                "Actor: " +
+                d.data["actor"] +
+                "</b></span><br>" +
+                "<span style='margin-left: 2.5px;'><b>" +
+                "# of Films: " +
+                d.data["value"] +
+                "</b></span><br>" +
+                "<span style='margin-left: 2.5px;'><b>" +
+                "Gender: " +
+                d.data["gender"] +
+                "</b></span><br>";
+              return content;
+            });
+          svg.call(tip);
+
+          var root = d3
+            .hierarchy({ children: dataDirector })
+            .sum((d) => d.value)
+            .sort((a, b) => b.value - a.value);
+
+          bubblechart(root);
+
+          var bubbles = svg
+            .selectAll(".bubblechart")
+            .data(root.children)
+            .enter();
+
+          bubbles
+            .append("circle")
+            .attr("class", "circles")
+            .attr("r", (d) => d.r)
+            .attr("cx", (d) => d.x)
+            .attr("cy", (d) => d.y)
+            .style("fill", (d) => color(d.value))
+            .style("stroke", "lightgrey")
+            .style("stroke-width", 1)
+            .on("mouseover", tip.show)
+            .on("mouseout", tip.hide);
+        });
+      }
+
+      function chooseColor(column) {
+        var color = new Array();
+        var choosenColor = d3.scaleOrdinal(color);
+        if ("value" == column) {
+          color = [
+            "#008777",
+            "#67a1d1",
+            "#b6bef6",
+            "#ffdaff",
+            "#fad3b4",
+            "#f0a68a",
+            "#ec7263",
+          ];
+          choosenColor = d3.scaleOrdinal(color);
+        } else if ("gender" == column) {
+          let malefemale = ["m", "f"];
+          choosenColor = d3
+            .scaleOrdinal()
+            .domain(malefemale)
+            .range(["rgb(17, 138, 178)", "rgb(244, 124, 152)"]);
+        }
+
+        d3.selectAll("circle")
+          .transition()
+          .duration(1000)
+          .style("fill", (d) => choosenColor(d.data[column]));
+      }
+    </script>
+  </div>
+</body>

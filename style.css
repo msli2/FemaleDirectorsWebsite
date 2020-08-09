@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+
+/* body characteristics */
+body * {
+  font-family: "Montserrat";
+  color: white;
+  font-size: 14px;
+}
+
+/* navigation bar */
+.navbar {
+  background-color: #220901;
+}
+
+.navbar .navbar-brand {
+  font-size: 28px;
+  font-weight: 500;
+  font-family: "Work Sans";
+}
+
+.navbar a {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Work Sans";
+}
+
+.navbar .nav-item.active .nav-link,
+.navbar :hover {
+  background-color: #621708 !important;
+  color: white !important;
+  text-decoration: none;
+}
+
+h4,
+h5,
+.list-group-item {
+  font-family: "Work Sans";
+}
+
+.list-group-item {
+  font-size: 15px;
+  color: #220901;
+}
+
+p a,
+p a:hover {
+  color:#4281a4;
+}
+
+/* dark sections background change */
+.rowdark {
+  background-color: #220901;
+}
+
+/* light sectons font change */
+.tableauintro h4,
+.tableauintro p,
+.teamtitle,
+.analysis2 h4,
+.analysis2 p {
+  color: #220901;
+}
+
+/* overlay for information about team members */
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #220901;
+}
+
+.col-md-3:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  color: white;
+  text-align: center;
+}
+
+.text h5 {
+  font-size: 18px;
+}
+
+.text p,
+.text a {
+  font-size: 12px;
+}
+
+/* image formatting for about page */
+img {
+  width: 100%;
+}
+
+/* image formatting for main page */
+.carousel-item img {
+  width: 100%;
+  height: 90%;
+}
+
+/* image formatting for d3 page */
+.analysis2 img {
+  border: 2px solid #220901;
+}

@@ -1,0 +1,239 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>FEMALE DIRECTORS D3</title>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+        <a class="navbar-brand ml-auto" href="index.html">FEMALE DIRECTORS</a>
+        <div class="navbar-collapse w-100">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">ABOUT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tableau.html">TABLEAU DASHBOARDS</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="d3.html">D3 VISUALIZATIONS</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- D3 Introduction -->
+    <div class="rowdark">
+      <div class="container">
+        <div class="row">
+          <div class="offset-1 col-10 text-center py-4">
+            <h4 style="font-size: 26px;">D3 VISUALIZATIONS</h4>
+            <p>
+              Our D3 Visualizations display analyses focused on gender
+              differences over time, per director and per media as well as actor
+              director relations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Middle Navigation Bar -->
+    <div class="container">
+      <div class="list-group flex-column flex-md-row text-center">
+        <a
+          href="#genderovertime"
+          class="list-group-item list-group-item-action"
+        >
+          Gender Differences Over Time</a
+        >
+        <a href="#genderdirector" class="list-group-item list-group-item-action"
+          >Gender Differences Per Director</a
+        >
+        <a href="#gendermedia" class="list-group-item list-group-item-action"
+          >Gender Differences Per Media</a
+        >
+        <a
+          href="#recurringactors"
+          class="list-group-item list-group-item-action"
+          >Recurring Actors Per Director</a
+        >
+        <a
+          href="#directorrelations"
+          class="list-group-item list-group-item-action"
+          >Actor Director Relations</a
+        >
+        <a
+          href="#directortimelines"
+          class="list-group-item list-group-item-action"
+        >
+          Actor Director Timelines</a
+        >
+      </div>
+    </div>
+    <!-- Gender Differences Over Time section -->
+    <a name="genderovertime"></a>
+    <div class="analysis rowdark py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5" style="margin: 105px 0px 105px 0px;">
+            <h4>GENDER DIFFERENCES OVER TIME VISUALIZATION</h4>
+            <p>
+              This visualization shows how the number of actresses in female
+              directed movies are ranked. Futhermore, it presents an animated
+              view of actresses over time and how female directors gave more
+              chances to actresses in the past 100 years.
+            </p>
+            <p style="margin: -15px 0px 0px 0px;">
+              <a href="d3section/bargraph.html"
+                >View Entire Visualization</a
+              >
+            </p>
+          </div>
+          <div class="col-md-7">
+            <a href="d3section/bargraph.html">
+              <img src="mainphotos/genderovertime.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Gender Differences Per Director section -->
+    <a name="genderdirector"></a>
+    <div class="analysis2 my-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <a href="d3section/index.html">
+              <img src="mainphotos/genderdirector.png" />
+            </a>
+          </div>
+          <div class="col-md-5" style="margin: 95px 0px 95px 0px;">
+            <h4>GENDER DIFFERENCES PER DIRECTOR VISUALIZATION</h4>
+            <p>
+              This visualization focuses on gender differences, male and female
+              actors, in female directed movies. It gives a compact, direct line
+              picture of how these genders vary in each director's films.
+            </p>
+            <p style="margin: -15px 0px 0px 0px;">
+              <a href="d3section/index.html">View Entire Visualization</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Gender Differences Per Media section -->
+    <a name="gendermedia"></a>
+    <div class="analysis rowdark py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5" style="margin: 95px 0px 95px 0px;">
+            <h4>GENDER DIFFERENCES PER MEDIA VISUALIZATION</h4>
+            <p>
+              This visualization focuses on gender differences, male and female
+              actors, in each individual female directed movie. It gives a side
+              by side animated visual of how these genders vary in each film and
+              provides a ratio as well.
+            </p>
+            <p style="margin: -15px 0px 0px 0px;">
+              <a href="d3section/GenderDifferencesFilm.html">View Entire Visualization</a>
+            </p>
+          </div>
+          <div class="col-md-7">
+            <a href="d3section/GenderDifferencesFilm.html">
+              <img src="mainphotos/gendermedia.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Recurring Actors Per Director section -->
+    <a name="recurringactors"></a>
+    <div class="analysis2 my-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <a href="d3section/RecurringActors.html">
+              <img src="mainphotos/recurringactors.png" />
+            </a>
+          </div>
+          <div class="col-md-5" style="margin: 100px 0px 100px 0px;">
+            <h4>RECURRING ACTORS PER DIRECTOR VISUALIZATION</h4>
+            <p>
+              This visualization focuses reoccuring actors that each female
+              director has worked with to gauge the gender differences and
+              amount of recurrences. It gives a collected bubble view to observe
+              all of the actors.
+            </p>
+            <p style="margin: -15px 0px 0px 0px;">
+              <a href="d3section/RecurringActors.html">View Entire Visualization</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Actor Director Relations section -->
+    <a name="directorrelations"></a>
+    <div class="analysis rowdark py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5" style="margin: 95px 0px 95px 0px;">
+            <h4>ACTOR DIRECTOR RELATIONS VISUALIZATION</h4>
+            <p>
+              This visualization focuses on actors who have worked with more
+              than one female director. It shows network graphs
+              that show the female directors and corresponding media that they
+              directed where the actor participated in.
+            </p>
+            <p style="margin: -15px 0px 0px 0px;">
+              <a href="d3section/ActorDirectorRelations.html">View Entire Visualization</a>
+            </p>
+          </div>
+          <div class="col-md-7">
+            <a href="d3section/ActorDirectorRelations.html">
+              <img src="mainphotos/actordirector.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Actor Director Timelines section -->
+    <a name="directortimelines"></a>
+    <div class="analysis2 my-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <a href="d3section/ActorTimelines.html">
+              <img src="mainphotos/timelines.png" />
+            </a>
+          </div>
+          <div class="col-md-5" style="margin: 80px 0px 80px 0px;">
+            <h4>ACTOR DIRECTOR TIMELINES VISUALIZATION</h4>
+            <p>
+              This visualization provides timelines of the female directors and
+              actors who have worked with them. It shows a compact view of
+              timelines which are colored coordinated based on films with higher
+              male actors, higher female actors or equal amount of actors per
+              gender.
+            </p>
+            <p style="margin: -15px 0px 0px 0px;">
+              <a href="d3section/ActorTimelines.html">View Entire Visualization</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Actor Director Relations</title>
+</head>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+  .navbar {
+    background-color: #220901;
+    font-family: "Work Sans";
+  }
+  .navbar .navbar-brand {
+    font-size: 28px;
+  }
+  .navbar a,
+  .list-group-item {
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .navbar .nav-item.active .nav-link,
+  .navbar a:hover {
+    background-color: #621708 !important;
+    color: white !important;
+    text-decoration: none;
+  }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    color: #220901;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    max-height: 100%;
+  }
+  .links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+  }
+  .nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+  .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+  }
+  .svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  button,
+  .card {
+    border: none;
+    background: none;
+    display: block;
+    text-align: left;
+  }
+  button:hover {
+    background: #220901;
+    color: white;
+  }
+  button:focus {
+    outline: 0;
+    background: #220901;
+    color: white;
+  }
+  .card-header {
+    background: none;
+    font-size: 16px;
+  }
+  .card-body {
+    font-size: 14px;
+  }
+  #accordion {
+    margin-top: 20px;
+    border: 1px solid lightgrey;
+  }
+  .scroll {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<nav class="navbar navbar-expand-md">
+  <div class="container">
+    <a class="navbar-brand" href="../d3.html">FEMALE DIRECTORS D3</a>
+    <div class="navbar-collapse w-100">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="bargraph.html"
+            >OVER TIME</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html"
+            >DIRECTOR</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="GenderDifferencesFilm.html"
+            >MEDIA</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="RecurringActors.html">RECURRING</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="ActorDirectorRelations.html"
+            >RELATIONS</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ActorTimelines.html">TIMELINES</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <h5 style="padding-top: 10px;">
+    Different Directors and Their Medias Per Actor
+  </h5>
+  <div class="row">
+    <div class="col-md-3">
+      <div style="border: 1px solid lightgrey; padding: 6px; margin-top: 10px;">
+        <h6
+          style="
+            margin: 5px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 550;
+          "
+        >
+          Summary
+        </h6>
+        <div>
+          <p id="summary" style="text-align: center; line-height: 1.2;"></p>
+        </div>
+      </div>
+      <div class="d-flex text-center mt-3" style="font-size: 14px;">
+        <h6
+          class="w-100 mt-3"
+          style="font-weight: 600; text-align: center;"
+        >
+          Color Key
+        </h6>
+        <p class="w-100" style="padding: 4px;">
+          <span style="color: rgb(17, 138, 178);">Blue: </span>Male Actors
+        </p>
+        <p class="w-100" style="padding: 4px;">
+          <span style="color: rgb(244, 124, 152);">Pink: </span>Female Actors
+        </p>
+        <p class="w-100" style="padding: 4px;">
+          <span style="color: #dba506;">Gold: </span>Female Director
+        </p>
+        <p class="w-100" style="padding: 4px;"><span style="color: #212529;">Black: </span>Film/Media</p>
+      </div>
+      <input
+        class="form-control"
+        id="myInput"
+        type="text"
+        placeholder="Search.."
+      />
+      <div id="accordion"></div>
+    </div>
+    <div id="container" class="svg-container col-md-4" style="margin-bottom: 120px;"></div>
+    <div id="containerTwo" class="svg-container col-md-4"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $(".card-body *").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
+</script>
+<script>
+  var margin = { top: 40, right: 20, bottom: 40, left: 20 },
+    width = 380 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
+
+  var svg = d3
+    .select("div#container")
+    .append("svg")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 380 750")
+    .classed("svg-content", true)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var margin2 = { top: 40, right: 20, bottom: 40, left: 20 },
+    width2 = 380 - margin.left - margin.right,
+    height2 = 700 - margin.top - margin.bottom;
+
+  var svgTwo = d3
+    .select("div#containerTwo")
+    .append("svg")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 380 750")
+    .classed("svg-content", true)
+    .append("g")
+    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+  d3.json("repeatedFilms.json", function (error, data) {
+    var menunodes = [];
+    data.nodes.forEach(function (d) {
+      if (!menunodes.includes(d.id) && d.group != "me") {
+        menunodes.push(d.id);
+      }
+    });
+
+    menunodes.sort();
+
+    d3.select("#accordion").append("div").classed("card", true).html(
+      `<div class="card">
+              <div
+                class="card-header"
+              >
+                Actors
+              </div>
+              <div class="card-body scroll">
+              </div>`
+    );
+
+    for (var k = 0; k < menunodes.length; k++) {
+      d3.select(".card-body").append("div").html(
+        `<button
+                    class="col-md-12"
+                    onclick="chooseDirectors('${menunodes[k]}')"
+                  >
+                    ${menunodes[k]}
+                  </button>`
+      );
+    }
+  });
+
+  chooseDirectors("A Martinez");
+
+  function chooseDirectors(actor) {
+    d3.json("repeatedDirectors.json", function (error, data) {
+      chooseFilms(actor);
+      d3.selectAll("svg > g > *").remove();
+      d3.selectAll("p#summary > text").remove();
+      if (error) throw error;
+
+      var simulation = d3
+        .forceSimulation()
+        .force(
+          "link",
+          d3
+            .forceLink()
+            .id(function (d) {
+              return d.id;
+            })
+            .distance(100)
+        )
+        .force("charge", d3.forceManyBody().strength(-300))
+        .force("center", d3.forceCenter(width / 2, height / 2));
+
+      let formatSuffixDecimal2 = d3.format(".2s");
+      let maleNum = d3.sum(data.nodes, (d) => d.group == "m");
+      let femaleNum = d3.sum(data.nodes, (d) => d.group == "f");
+      let directorNum = d3.sum(data.nodes, (d) => d.group == "d");
+      let maleratio = formatSuffixDecimal2(maleNum / femaleNum);
+      let femaleratio = formatSuffixDecimal2(femaleNum / femaleNum);
+
+      d3.select("p#summary")
+        .append("text")
+        .style("text-anchor", "middle")
+        .style("font-size", 20)
+        .text(
+          "With " +
+            directorNum +
+            " different female directors, " +
+            maleNum +
+            " male unique actors and " +
+            femaleNum +
+            " female unique actors have worked with more than one female director, a " +
+            maleratio +
+            " to " +
+            femaleratio +
+            " ratio."
+        )
+        .attr(
+          "transform",
+          "translate(" +
+            (width + margin.left + margin.right) / 2 +
+            "," +
+            margin.right +
+            ")"
+        );
+
+      var filterednodes = [];
+      data.links.forEach(function (d) {
+        if (!filterednodes.includes(d.target) && d.source === actor) {
+          filterednodes.push(d.target);
+        }
+      });
+
+      data.links = data.links.filter(function (d) {
+        if (d.source === actor) {
+          return d.target;
+        }
+      });
+
+      data.nodes = data.nodes.filter(function (d) {
+        if (filterednodes.includes(d.id) || d.id === actor) {
+          return d.id;
+        }
+      });
+
+      var myText = svg
+        .selectAll(".mytext")
+        .data(data.nodes)
+        .enter()
+        .append("text")
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
+        .text("Female Directors " + actor + " Worked With")
+        .attr("y", function (d) {
+          return margin.top * 1.5;
+        })
+        .attr("x", function (d) {
+          return width / 2;
+        })
+        .call(wrap, width);
+
+      let color = d3
+        .scaleOrdinal()
+        .domain(["m", "f", "d"])
+        .range(["rgb(17, 138, 178)", "rgb(244, 124, 152)", "#DBA506"]);
+
+      var link = svg
+        .append("g")
+        .attr("class", "links")
+        .selectAll("line")
+        .data(data.links)
+        .enter()
+        .append("line")
+        .attr("stroke-width", 1);
+
+      var node = svg
+        .append("g")
+        .attr("class", "nodes")
+        .selectAll("g")
+        .data(data.nodes)
+        .enter()
+        .append("g");
+
+      var circles = node
+        .append("circle")
+        .attr("r", 15)
+        .attr("fill", function (d) {
+          return color(d.group);
+        })
+        .call(
+          d3
+            .drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended)
+        );
+
+      var labels = node
+        .append("text")
+        .text(function (d) {
+          if (d.group == "d") {
+            return d.id;
+          }
+        })
+        .style("font-size", 15)
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(0, -20)");
+
+      simulation.nodes(data.nodes).on("tick", ticked);
+
+      simulation.force("link").links(data.links);
+
+      function ticked() {
+        link
+          .attr("x1", function (d) {
+            return d.source.x;
+          })
+          .attr("y1", function (d) {
+            return d.source.y;
+          })
+          .attr("x2", function (d) {
+            return d.target.x;
+          })
+          .attr("y2", function (d) {
+            return d.target.y;
+          });
+
+        node.attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+      }
+
+      function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      }
+
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+    });
+  }
+  function chooseFilms(actor) {
+    d3.json("repeatedFilms.json", function (error, data) {
+      d3.selectAll("svgTwo > g > *").remove();
+      if (error) throw error;
+
+      var simulation = d3
+        .forceSimulation()
+        .force(
+          "link",
+          d3
+            .forceLink()
+            .id(function (d) {
+              return d.id;
+            })
+            .distance(100)
+        )
+        .force("charge", d3.forceManyBody().strength(-300))
+        .force("center", d3.forceCenter(width2 / 2, height2 / 2));
+
+      var filterednodes = [];
+      data.links.forEach(function (d) {
+        if (!filterednodes.includes(d.target) && d.source === actor) {
+          filterednodes.push(d.target);
+        }
+      });
+
+      data.links = data.links.filter(function (d) {
+        if (d.source === actor) {
+          return d.target;
+        }
+      });
+
+      data.nodes = data.nodes.filter(function (d) {
+        if (filterednodes.includes(d.id) || d.id === actor) {
+          return d.id;
+        }
+      });
+
+      var myText = svgTwo
+        .selectAll(".mytext")
+        .data(data.nodes)
+        .enter()
+        .append("text")
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
+        .text("The Corresponding Media " + actor + " Acted In")
+        .attr("y", function (d) {
+          return margin2.top * 1.5;
+        })
+        .attr("x", function (d) {
+          return width2 / 2;
+        })
+        .call(wrap, width2);
+
+      let color = d3
+        .scaleOrdinal()
+        .domain(["m", "f", "me"])
+        .range(["rgb(17, 138, 178)", "rgb(244, 124, 152)", "#212529"]);
+
+      var link = svgTwo
+        .append("g")
+        .attr("class", "links")
+        .selectAll("line")
+        .data(data.links)
+        .enter()
+        .append("line")
+        .attr("stroke-width", 1);
+
+      var node = svgTwo
+        .append("g")
+        .attr("class", "nodes")
+        .selectAll("g")
+        .data(data.nodes)
+        .enter()
+        .append("g");
+
+      var circles = node
+        .append("circle")
+        .attr("r", 15)
+        .attr("fill", function (d) {
+          return color(d.group);
+        })
+        .call(
+          d3
+            .drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended)
+        );
+
+      var labels = node
+        .append("text")
+        .text(function (d) {
+          if (d.group == "me") {
+            return d.id;
+          }
+        })
+        .style("font-size", 15)
+        .style("text-anchor", "middle")
+        .attr("x", 0)
+        .attr("y", function (d) {
+          if (this.getComputedTextLength() > 320) {
+            return -60;
+          } else if (this.getComputedTextLength() > 200) {
+            return -40;
+          } else {
+            return -20;
+          }
+        })
+        .call(wrap, 200);
+
+      simulation.nodes(data.nodes).on("tick", ticked);
+
+      simulation.force("link").links(data.links);
+
+      function ticked() {
+        link
+          .attr("x1", function (d) {
+            return d.source.x;
+          })
+          .attr("y1", function (d) {
+            return d.source.y;
+          })
+          .attr("x2", function (d) {
+            return d.target.x;
+          })
+          .attr("y2", function (d) {
+            return d.target.y;
+          });
+
+        node.attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+      }
+
+      function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      }
+
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+    });
+  }
+  function wrap(text, width) {
+    text.each(function () {
+      var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1,
+        x = text.attr("x"),
+        y = text.attr("y"),
+        dy = 0,
+        tspan = text
+          .text(null)
+          .append("tspan")
+          .attr("x", x)
+          .attr("y", y)
+          .attr("dy", dy + "em");
+      while ((word = words.pop())) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text
+            .append("tspan")
+            .attr("x", x)
+            .attr("y", y)
+            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+            .text(word);
+        }
+      }
+    });
+  }
+</script>

@@ -1,0 +1,64 @@
+﻿<!--
+A data visualization project based on d3.js. 
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Changing of actress in movies by women directors</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+        <a class="navbar-brand" href="../d3.html">FEMALE DIRECTORS D3</a>
+        <div class="navbar-collapse w-100">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="bargraph.html">OVER TIME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">DIRECTOR</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="GenderDifferencesFilm.html">MEDIA</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="RecurringActors.html">RECURRING</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ActorDirectorRelations.html"
+                >RELATIONS</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ActorTimelines.html">TIMELINES</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <center>
+      <h2 style="padding-top: 10px;">Number of Actress in Female-Directed Movies</h2>
+      <!-- <input type="file" id="select" name="fileContent"> -->
+      <svg width="1300" height="700"></svg>
+      <script src="visual.js"></script>
+      <script src="config.js"></script>
+      <script src="imgs.js"></script>
+      <select id="selectButton" style="margin-top: 20px;"></select>
+      <select id="selectButton1" style="margin-top: 20px;"></select>
+      <script src="color_ranges.js"></script>
+      <link rel="stylesheet" href="stylesheet.css" />
+    </center>
+  </body>
+</html>
