@@ -109,6 +109,7 @@ img {
 }
 
 /* image formatting for d3 page */
-.analysis2 img {
+.analysis2 img,
+.tableauintro img {
   border: 2px solid #220901;
 }
