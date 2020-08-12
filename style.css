@@ -33,6 +33,7 @@ body * {
   text-decoration: none;
 }
 
+/* coloring for the titles, middle navigation and links */
 h4,
 h5,
 .list-group-item {
@@ -83,6 +84,7 @@ p a:hover,
   opacity: 1;
 }
 
+/* text for the overlay in the about page */
 .text {
   position: absolute;
   top: 50%;
@@ -104,12 +106,6 @@ p a:hover,
 /* image formatting for about page */
 img {
   width: 100%;
-}
-
-/* image formatting for main page */
-.carousel-item img {
-  width: 100%;
-  height: 90%;
 }
 
 /* image formatting for d3 page */
