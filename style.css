@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 
 /* body characteristics */
 body * {
@@ -16,14 +16,14 @@ body * {
 .navbar .navbar-brand {
   font-size: 28px;
   font-weight: 500;
-  font-family: "Work Sans";
+  font-family: 'Poiret One', cursive;
 }
 
 .navbar a {
   color: white;
   font-size: 16px;
   font-weight: 500;
-  font-family: "Work Sans";
+  font-family: 'Poiret One', cursive;
 }
 
 .navbar .nav-item.active .nav-link,
@@ -35,13 +35,12 @@ body * {
 
 /* coloring for the titles, middle navigation and links */
 h4,
-h5,
-.list-group-item {
-  font-family: "Work Sans";
+h5 {
+  font-family: 'Poiret One', cursive;
 }
 
 .list-group-item {
-  font-size: 15px;
+  font-size: 14px;
   color: #220901;
 }
 

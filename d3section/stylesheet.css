@@ -1,6 +1,6 @@
 /**
 */
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 
 body {
     margin: 0px;
@@ -243,7 +243,7 @@ button {
 
 button a {
     color: white;
-    font-family: "Work Sans";
+    font-family: 'Poiret One', cursive;
     text-decoration: none;
     font-weight: 500;
     font-size: 15px;
@@ -251,7 +251,7 @@ button a {
 
 .navbar {
   background-color: #220901;
-  font-family: "Work Sans";
+  font-family: 'Poiret One', cursive;
 }
 .navbar .navbar-brand {
   font-size: 28px;
