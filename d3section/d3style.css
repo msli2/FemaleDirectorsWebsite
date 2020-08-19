@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poiret+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap");
+
+.navbar {
+  background-color: #220901;
+  font-family: "Poiret One", cursive;
+}
+
+.navbar .navbar-brand {
+  font-size: 28px;
+}
+
+.navbar a,
+.list-group-item {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.navbar .nav-item.active .nav-link,
+.navbar a:hover {
+  background-color: #621708 !important;
+  color: white !important;
+  text-decoration: none;
+}
+
+body {
+  font-family: "Montserrat";
+  color: #220901;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  max-height: 100%;
+}
+
+h5 {
+  font-family: "Poiret One", cursive;
+}
+
+.d3tipclass {
+  line-height: 1;
+  padding: 6px;
+  background: #220901;
+  color: #fff;
+  font-size: 13px;
+}
+
+button,
+.card {
+  border: none;
+  background: none;
+  display: block;
+  text-align: left;
+}
+
+button:hover {
+  background: #220901;
+  color: white;
+}
+
+button:focus {
+  outline: 0;
+  background: #220901;
+  color: white;
+}
+
+.card-header {
+  background: none;
+  font-size: 14px;
+}
+
+.card-body {
+  font-size: 12px;
+}
+
+#accordion {
+  border: 1px solid lightgrey;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #220901;
+  padding: 20px 0px 10px 0px;
+  color: white;
+  font-size: 15px;
+  border-top: 0.5px solid white;
+}

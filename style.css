@@ -33,15 +33,36 @@ body * {
   text-decoration: none;
 }
 
+/* footer */
+.footer {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #220901;
+  padding: 20px 0px 10px 0px;
+  color: white;
+  border-top: 0.5px solid white;
+}
+
+.footer p {
+  font-size: 15px;
+}
+
 /* coloring for the titles, middle navigation and links */
 h4,
-h5 {
+h5,
+.list-group-item {
   font-family: 'Poiret One', cursive;
 }
 
 .list-group-item {
-  font-size: 14px;
+  font-size: 15px;
   color: #220901;
+  text-transform: uppercase;
 }
 
 p a,

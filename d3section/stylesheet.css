@@ -1,257 +1,256 @@
 /**
 */
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poiret+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap");
 
 body {
-    margin: 0px;
-    color: #220901;
+  margin: 0px;
+  color: #220901;
 }
 
 input {
-    position: absolute;
-    top: 50%;
-    left: 45%;
+  position: absolute;
+  top: 50%;
+  left: 45%;
 }
 
 .domain {
-    display: none;
+  display: none;
 }
 
 .tick line {
-    stroke: #C0C0BB;
+  stroke: #c0c0bb;
 }
 
 .tick text {
-    fill: #8E8883;
-    font-size: 12pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #8e8883;
+  font-size: 10pt;
+  font-family: "Montserrat";
 }
 
 .label {
-    fill: #5C5C5C;
-    font-size: 15pt;
-    font-family: "Fira Code", "Source Han Sans CN";
-    font-weight: bold
+  fill: #5c5c5c;
+  font-size: 15pt;
+  font-family: "Montserrat";
+  font-weight: bold;
 }
 
 .dateLabel {
-
-    fill: #5C5C5C;
-    display: table-cell;
-    font-size: 60pt;
-    font-weight: bold;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  display: table-cell;
+  font-size: 45pt;
+  font-weight: bold;
+  font-family: "Montserrat";
 }
 
 .dateLabelRed {
-
-    fill: #A72E2E;
-    display: table-cell;
-    font-size: 48pt;
-    font-weight: bold;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #a72e2e;
+  display: table-cell;
+  font-size: 20pt;
+  font-weight: bold;
+  font-family: "Montserrat";
 }
 
 .top_type {
-    fill: #5C5C5C;
-    font-weight: bold;
-    font-size: 26pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  font-weight: bold;
+  font-size: 20pt;
+  font-family: "Montserrat";
 }
 
 .days {
-    fill: #5C5C5C;
-    font-weight: bold;
-    font-size: 20pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  font-weight: bold;
+  font-size: 20pt;
+  font-family: "Montserrat";
 }
-
-
 
 .topLabel {
-    fill: #5C5C5C;
-    font-weight: bold;
-    font-size: 26pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  font-weight: bold;
+  font-size: 20pt;
+  font-family: "Montserrat";
 }
 
-
 .top {
-    fill: #5C5C5C;
-    font-weight: bold;
-    font-size: 26pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  font-weight: bold;
+  font-size: 12pt;
+  font-family: "Montserrat";
 }
 
 .value {
-    fill: #8A2E2E;
-    font-size: 20pt;
-    font-weight: 400;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #8a2e2e;
+  font-size: 18pt;
+  font-weight: 400;
+  font-family: "Montserrat";
 }
 
 .barInfo {
-    fill: #FFFFFF;
-    font-weight: 800;
-    font-size: 14pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #ffffff;
+  font-weight: 800;
+  font-size: 12pt;
+  font-family: "Montserrat";
 }
 
 .axis-label {
-    fill: #635F5D;
-    font-size: 10pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #635f5d;
+  font-size: 12pt;
+  font-family: "Montserrat";
 }
 
 .days {
-    fill: r#5C5C5C;
-    font-weight: bold;
-    font-size: 26pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: r#5C5C5C;
+  font-weight: bold;
+  font-size: 20pt;
+  font-family: "Montserrat";
 }
 
 .dayslabel {
-    fill: #5C5C5C;
-    font-weight: bold;
-    font-size: 25pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  font-weight: bold;
+  font-size: 20pt;
+  font-family: "Montserrat";
 }
 
 .growth {
-    fill: #5C5C5C;
-    font-weight: bold;
-    font-size: 24pt;
-    font-family: "Fira Code", "Source Han Sans CN"
+  fill: #5c5c5c;
+  font-weight: bold;
+  font-size: 20pt;
+  font-family: "Montserrat";
 }
-
 
 .L {
-    fill: #39C5BB;
+  fill: #39c5bb;
 }
-
 
 .M {
-    fill: #006666
+  fill: #006666;
 }
 
 .L {
-    fill: #66CCFF
+  fill: #66ccff;
 }
 
 .N {
-    fill: #EB0000
+  fill: #eb0000;
 }
 
 .O {
-    fill: #009714
+  fill: #009714;
 }
 
 .P {
-    fill: #B11111
+  fill: #b11111;
 }
 
 .Q {
-    fill: #E24000
+  fill: #e24000;
 }
 
 .R {
-    fill: #8605D1
+  fill: #8605d1;
 }
 
 .S {
-    fill: #00A5BB
+  fill: #00a5bb;
 }
 
 .T {
-    fill: #C21178
+  fill: #c21178;
 }
 
 .U {
-    fill: #00A048
+  fill: #00a048;
 }
 
 .W {
-    fill: #FFC012
+  fill: #ffc012;
 }
 
 .V {
-    fill: #F39303
+  fill: #f39303;
 }
 
 .X {
-    fill: #933DDA
+  fill: #933dda;
 }
 
 .Y {
-    fill: #EE5677
+  fill: #ee5677;
 }
 
 .Z {
-    fill: #C0620B
+  fill: #c0620b;
 }
 
 .H {
-    fill: #787878
+  fill: #787878;
 }
 
 .G {
-    fill: #CB1B45
+  fill: #cb1b45;
 }
 
 .K {
-    fill: #0775BE
+  fill: #0775be;
 }
 
 .J {
-    fill: #B49D33
+  fill: #b49d33;
 }
 
 .I {
-    fill: #1B813E
+  fill: #1b813e;
 }
 
 .F {
-    fill: #DD3287
+  fill: #dd3287;
 }
 
 .E {
-    fill: #00AF89
+  fill: #00af89;
 }
 
 .D {
-    fill: #0F2540
+  fill: #0f2540;
 }
 
 .C {
-    fill: #2EA9DF
+  fill: #2ea9df;
 }
 
 .B {
-    fill: #0A83E6
+  fill: #0a83e6;
 }
 
 .A {
-    fill: #CF9237
+  fill: #cf9237;
+}
+
+h2 {
+  font-family: "Poiret One", cursive;
+  font-size: 30px;
 }
 
 button {
-    float: left; 
-    margin-left: 15px; 
-    background-color: #220901;
-    padding: 5px;
+  float: left;
+  margin-left: 15px;
+  background-color: #220901;
+  padding: 5px;
 }
 
 button a {
-    color: white;
-    font-family: 'Poiret One', cursive;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
+  color: white;
+  font-family: "Poiret One", cursive;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .navbar {
   background-color: #220901;
-  font-family: 'Poiret One', cursive;
+  font-family: "Poiret One", cursive;
 }
 .navbar .navbar-brand {
   font-size: 28px;
@@ -266,4 +265,20 @@ button a {
   background-color: #621708 !important;
   color: white !important;
   text-decoration: none;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #220901;
+  padding: 20px 0px 10px 0px;
+  color: white;
+  font-size: 15px;
+  font-family: "Montserrat";
+  border-top: 0.5px solid white;
 }

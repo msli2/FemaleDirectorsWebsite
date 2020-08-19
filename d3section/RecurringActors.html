@@ -6,78 +6,19 @@
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="d3style.css" />
   <title>Reoccuring Actors</title>
 </head>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
-  .navbar {
-    background-color: #220901;
-    font-family: 'Poiret One', cursive;
-  }
-  .navbar .navbar-brand {
-    font-size: 28px;
-  }
-  .navbar a,
-  .list-group-item {
-    color: white;
-    font-weight: 500;
-    font-size: 16px;
-  }
-  .navbar .nav-item.active .nav-link,
-  .navbar a:hover {
-    background-color: #621708 !important;
-    color: white !important;
-    text-decoration: none;
-  }
-  body {
-    font-family: "Times New Roman", Times, serif;
-    color: #220901;
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    height: 100%;
-    max-height: 100%;
-  }
-  .d3tipclass {
-    line-height: 1;
-    padding: 6px;
-    background: #220901;
-    color: #fff;
-    font-size: 14px;
-  }
-  button,
-  .card {
-    border: none;
-    background: none;
-    display: block;
-    text-align: left;
-  }
-  button:hover {
-    background: #220901;
-    color: white;
-  }
-  button:focus {
-    outline: 0;
-    background: #220901;
-    color: white;
-  }
-  .card-header {
-    background: none;
-    font-size: 16px;
-  }
-  .card-body {
-    font-size: 14px;
-  }
-  #accordion {
-    border: 1px solid lightgrey;
-  }
   .scroll {
-    max-height: 280px;
+    max-height: 305px;
     overflow-y: auto;
   }
   .svg-container {
@@ -110,27 +51,19 @@
       <div class="navbar-collapse w-100">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="bargraph.html"
-              >OVER TIME</a
-            >
+            <a class="nav-link" href="bargraph.html">OVER TIME</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html"
-              >DIRECTOR</a
-            >
+            <a class="nav-link" href="index.html">DIRECTOR</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="GenderDifferencesFilm.html"
-              >MEDIA</a
-            >
+            <a class="nav-link" href="GenderDifferencesFilm.html">MEDIA</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="RecurringActors.html">RECURRING</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="ActorDirectorRelations.html"
-              >RELATIONS</a
-            >
+            <a class="nav-link" href="ActorDirectorRelations.html">RELATIONS</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="ActorTimelines.html">TIMELINES</a>
@@ -153,7 +86,7 @@
               style="
                 padding: 5px;
                 text-align: center;
-                font-size: 17px;
+                font-size: 14px;
                 font-weight: 550;
               "
             >
@@ -163,10 +96,10 @@
               <p id="summary" style="text-align: center; line-height: 1.2;"></p>
             </div>
           </div>
-          <div class="d-flex text-center mt-3" style="font-size: 14px;">
+          <div class="d-flex text-center mt-3" style="font-size: 12px;">
             <h6
               class="w-100 mt-3"
-              style="font-weight: 600; text-align: center;"
+              style="font-weight: 600; text-align: center; font-size: 14px;"
             >
               Color Key
             </h6>
@@ -182,7 +115,10 @@
             </p>
           </div>
           <div class="btn-group d-flex">
-            <h6 class="w-100" style="font-weight: 600; text-align: center;">
+            <h6
+              class="w-100 mt-2"
+              style="font-weight: 600; text-align: center; font-size: 14px;"
+            >
               Color Options
             </h6>
             <button class="options w-100" onclick="chooseColor('value')">
@@ -283,7 +219,7 @@
             .append("text")
             .attr("transform", "translate(" + width / 2 + "," + -20 + ")")
             .style("text-anchor", "middle")
-            .style("font-size", 18)
+            .style("font-size", 15)
             .style("font-weight", 550)
             .text("Director " + director);
 
@@ -406,5 +342,18 @@
           .style("fill", (d) => choosenColor(d.data[column]));
       }
     </script>
+  </div>
+  <div class="footer">
+    <a
+      href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fmehtadatalab.web.illinois.edu%2Fprojects.html&ref_src=twsrc%5Etfw&screen_name=mehtadatalab&tw_p=followbutton"
+      ><i
+        class="fa fa-twitter"
+        style="font-size: 24px; color: #4281a4; padding-right: 10px;"
+      ></i
+    ></a>
+    <p>
+      mehtadatalab is funded by the Illinois Presidential Initiative & NCSA at
+      the University of Illinois
+    </p>
   </div>
 </body>
